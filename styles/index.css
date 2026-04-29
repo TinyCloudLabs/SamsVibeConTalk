@@ -1,0 +1,452 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+/* ==============================
+   DESIGN TOKENS
+   ============================== */
+:root {
+  /* Surfaces -- matched to illustration backgrounds */
+  --bg-deep: #1d2136;
+  --bg-surface: #242840;
+  --bg-card: rgba(255, 255, 255, 0.03);
+  --bg-card-border: rgba(255, 255, 255, 0.08);
+  /* Text */
+  --text-primary: #e4e4e8;
+  --text-secondary: rgba(228, 228, 232, 0.5);
+  --text-muted: rgba(228, 228, 232, 0.35);
+  /* Accent */
+  --accent: #818cf8;
+  --accent-light: #a5b4fc;
+  --accent-dim: rgba(129, 140, 248, 0.12);
+  --accent-border: rgba(129, 140, 248, 0.15);
+  /* Semantic */
+  --green: #34d399;
+  --green-dim: rgba(52, 211, 153, 0.1);
+  --green-border: rgba(52, 211, 153, 0.15);
+  --yellow: #fbbf24;
+  --yellow-dim: rgba(251, 191, 36, 0.1);
+  --yellow-border: rgba(251, 191, 36, 0.15);
+  --red: #f87171;
+  --red-dim: rgba(248, 113, 113, 0.1);
+  --red-border: rgba(248, 113, 113, 0.15);
+  /* Spacing */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+}
+/* ==============================
+   BASE -- VIEWPORT-SAFE SLIDES
+   ============================== */
+.slidev-layout {
+  background: var(--bg-deep) !important;
+  color: var(--text-primary) !important;
+  padding: 2rem 3rem 1.5rem !important;
+  overflow: hidden !important;
+}
+/* Master container -- ensures nothing exceeds viewport */
+.slide-viewport {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+/* ==============================
+   VIEWPORT CONSTRAINT SYSTEM
+   Slidev renders at 960x540 (16:9). With padding (2rem 3rem 1.5rem),
+   the usable content area is approximately:
+   - Width: ~894px (960 - 66px horizontal padding)
+   - Height: ~484px (540 - 56px vertical padding)
+
+   AGENTS: When designing slides, all content must fit within these
+   dimensions. If content overflows, reduce font sizes, spacing, or
+   restructure — NEVER let content spill off the viewport.
+
+   Debug: Add class "debug-viewport" to any slide's root div to see
+   a red border at the content boundary.
+   ============================== */
+.debug-viewport {
+  outline: 2px dashed red !important;
+  outline-offset: -2px;
+  max-height: 484px;
+}
+
+/* Force all direct children of slidev-layout to respect viewport */
+.slidev-layout > div {
+  max-height: calc(540px - 3.5rem);
+  overflow: hidden;
+}
+/* ==============================
+   TYPOGRAPHY
+   ============================== */
+h1, h2, h3 {
+  font-family: 'Inter', sans-serif !important;
+  color: var(--text-primary) !important;
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+h1 {
+  font-weight: 800 !important;
+  font-size: 2.25rem !important;
+  line-height: 1.15 !important;
+}
+h2 {
+  font-weight: 700 !important;
+  font-size: 1.55rem !important;
+  line-height: 1.25 !important;
+}
+h3 {
+  font-weight: 600 !important;
+  font-size: 0.95rem !important;
+  line-height: 1.35 !important;
+}
+p, li, td, th {
+  font-family: 'Inter', sans-serif !important;
+  color: var(--text-primary) !important;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+a { color: var(--accent-light) !important; text-decoration: none; }
+/* Section labels -- mono, uppercase, above headline */
+.section-label {
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 0.82rem !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  margin-bottom: var(--space-xs);
+  color: var(--accent) !important;
+}
+/* ==============================
+   CARDS
+   ============================== */
+.neo-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--bg-card-border);
+  border-radius: 12px;
+  padding: var(--space-md);
+}
+.neo-card-blue {
+  background: var(--bg-surface);
+  border: 1px solid var(--accent-border);
+  border-radius: 12px;
+  padding: var(--space-md);
+}
+.neo-card-yellow {
+  background: var(--bg-surface);
+  border: 1px solid var(--yellow-border);
+  border-radius: 12px;
+  padding: var(--space-md);
+}
+.neo-card-green {
+  background: var(--bg-surface);
+  border: 1px solid var(--green-border);
+  border-radius: 12px;
+  padding: var(--space-md);
+}
+.neo-card-red {
+  background: var(--bg-surface);
+  border: 1px solid var(--red-border);
+  border-radius: 12px;
+  padding: var(--space-md);
+}
+.neo-card h3, .neo-card-blue h3, .neo-card-yellow h3,
+.neo-card-green h3, .neo-card-red h3 {
+  color: var(--text-primary) !important;
+}
+.neo-card p, .neo-card-blue p, .neo-card-yellow p,
+.neo-card-green p, .neo-card-red p {
+  color: var(--text-primary) !important;
+}
+/* ==============================
+   ILLUSTRATION CLASSES
+   ============================== */
+/* Hero illustration -- full-width, centered, generous vertical space */
+.illustration-hero {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: var(--space-sm) 0;
+  flex-shrink: 0;
+}
+.illustration-hero img {
+  max-height: 280px;
+  max-width: 90%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+/* Inline illustration -- for side-by-side layouts */
+.illustration-inline {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+.illustration-inline img {
+  max-width: 100%;
+  object-fit: contain;
+  border-radius: 8px;
+}
+/* Background illustration -- positioned behind content (atmospheric only) */
+.illustration-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 0;
+  pointer-events: none;
+}
+.illustration-bg img {
+  max-height: 110%;
+  max-width: 110%;
+  object-fit: contain;
+  opacity: 0.55;
+}
+/* Three-panel illustration strip -- equal columns, large images, optional labels */
+.illustration-triptych {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-md);
+  align-items: end;
+  flex: 1;
+  min-height: 0;
+}
+.illustration-triptych .triptych-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+.illustration-triptych .triptych-panel img {
+  max-width: 100%;
+  flex: 1;
+  min-height: 0;
+  object-fit: contain;
+  border-radius: 8px;
+}
+.illustration-triptych .triptych-label {
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 0.6rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent-light) !important;
+  margin-top: var(--space-xs);
+  text-align: center;
+  flex-shrink: 0;
+}
+/* Step icons -- for the 3-column product cards */
+.step-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: var(--space-xs);
+}
+.step-icon img {
+  max-height: 100px;
+  max-width: 100px;
+  object-fit: contain;
+}
+/* ==============================
+   SPLIT LAYOUTS -- image + text side by side
+   ============================== */
+.split-text-img {
+  display: grid;
+  grid-template-columns: 55fr 45fr;
+  gap: var(--space-lg);
+  align-items: center;
+  height: 100%;
+}
+.split-img-text {
+  display: grid;
+  grid-template-columns: 40fr 60fr;
+  gap: var(--space-lg);
+  align-items: center;
+  height: 100%;
+}
+.split-text-img img, .split-img-text img {
+  max-width: 100%;
+  max-height: 420px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+/* ==============================
+   STATS
+   ============================== */
+.stat-huge {
+  font-family: 'Inter', sans-serif !important;
+  font-size: 2.5rem !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  color: var(--accent) !important;
+}
+.stat-huge.red { color: var(--red) !important; }
+.stat-huge.green { color: var(--green) !important; }
+.stat-label {
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 0.6rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+  margin-top: 0.3rem;
+  color: var(--text-secondary) !important;
+}
+.stat-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--bg-card-border);
+  border-radius: 12px;
+  padding: var(--space-md);
+  text-align: center;
+}
+/* ==============================
+   GRIDS
+   ============================== */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-lg); }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--space-md); }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-sm); }
+/* Split layouts for illustration + text side-by-side (legacy) */
+.split-left-img {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: var(--space-lg);
+  align-items: start;
+}
+.split-right-img {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: var(--space-lg);
+  align-items: start;
+}
+/* ==============================
+   LAYOUT UTILITIES
+   ============================== */
+.slide-centered {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+}
+.highlight-box {
+  background: var(--bg-surface);
+  border: 2px solid var(--accent-border);
+  border-left: 4px solid var(--accent);
+  border-radius: 10px;
+  padding: var(--space-md);
+}
+.highlight-box h3 { margin-bottom: var(--space-xs); }
+.highlight-box p { font-size: 0.8rem; line-height: 1.55; margin: 0; }
+.source-line {
+  font-family: 'JetBrains Mono', monospace !important;
+  font-size: 0.5rem !important;
+  color: var(--text-muted) !important;
+  letter-spacing: 0.03em;
+  margin-top: var(--space-xs);
+}
+/* ==============================
+   OTHER ELEMENTS
+   ============================== */
+.logo-massive {
+  font-family: 'Inter', sans-serif;
+  font-size: 4.5rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--text-primary);
+}
+.neo-divider {
+  width: 48px;
+  height: 2px;
+  background: var(--accent);
+  border: none;
+  margin: var(--space-md) auto;
+  border-radius: 1px;
+}
+.accent { color: var(--accent) !important; }
+.accent-green { color: var(--green) !important; }
+.accent-red { color: var(--red) !important; }
+.muted { opacity: 0.4; }
+.headshot {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto var(--space-xs);
+  border: 2px solid var(--accent);
+}
+/* Tables */
+table { width: 100%; border-collapse: collapse; font-size: 0.78rem !important; }
+th, td { padding: 0.45rem 0.6rem; text-align: left; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+th {
+  font-family: 'JetBrains Mono', monospace !important;
+  font-weight: 600;
+  font-size: 0.58rem !important;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-secondary) !important;
+}
+/* Lists */
+ul { padding-left: 1.25rem; margin: var(--space-xs) 0; }
+li { margin-bottom: 0.3rem; font-size: 0.82rem !important; }
+li::marker { color: var(--accent); }
+/* Status badges */
+.badge-live {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  background: var(--green-dim);
+  color: var(--green);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid var(--green-border);
+  border-radius: 5px;
+}
+.badge-beta {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  background: var(--yellow-dim);
+  color: var(--yellow);
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 600;
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid var(--yellow-border);
+  border-radius: 5px;
+}
+/* Flywheel / loop diagram support */
+.flywheel-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: var(--space-sm);
+}
+.flywheel-container img {
+  max-height: 170px;
+  max-width: 90%;
+  object-fit: contain;
+}
+/* Concentric rings support */
+.rings-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.rings-container img {
+  max-height: 280px;
+  max-width: 100%;
+  object-fit: contain;
+}
+/* Progress bar */
+.slidev-progress-bar { background: var(--accent) !important; }

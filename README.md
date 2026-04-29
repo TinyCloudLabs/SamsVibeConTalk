@@ -3,6 +3,14 @@
 A 15-minute talk by Sam Gbafa, co-founder of TinyCloud.
 April 29, 2026.
 
+## Run locally
+
+```
+bun install
+bun run dev      # http://localhost:3033
+bun run export   # writes anatomy-talk.pdf
+```
+
 ## Contents
 
 - `anatomy-talk.md` — Slidev source
